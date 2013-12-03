@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8 />
+	<title>Title</title>
+	<style>
+		html{
+			font:normal 100 24px/1  'Avenir', Tahoma, Arial, Helvetica, sans-serif;
+			color: #f7f7f7;
+		}
+		body{
+			margin: 0;
+		}
+		.wrap{
+			width: 960px;
+			margin: 0 auto;
+		}
+		.wrap > *{
+			border: 2px #333 solid;
+			background: #E66665;
+		}
+		header{
+			height: 125px;
+			background: #C30000;
+			width: 100%;
+			overflow: hidden;
+		}
+		#logo{
+			height: 82px;
+			width: 75%;
+			float: left;
+		}
+		.search{
+			width: 24%;
+			height: 82px;
+			float: right;
+		}
+		.search span{
+			text-align: right;
+			display: block;
+			width: 100%;
+		}
+		.search input{
+			float: right;
+		}
+		nav{
+			clear: both;
+			height: 35px;
+		}
+		section{
+			float: left;
+			width: 66%;
+			height: 150px;
+		}
+		aside{
+			float: right;
+			width: 33%;
+			height: 150px;
+		}
+		.extras{
+			width: 99%;
+			margin: 0 auto;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		header
+		<div class="wrap">
+			<div id="logo">
+				Logo
+			</div>
+			<div class="search">
+				<span>signup, login</span>
+				<input type="search" /><input type="button" value="Search"/>
+			</div>
+			<nav>
+				<ul>
+					<li>Navigation</li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<div class="wrap">
+		<section>
+			Main Section
+			<h1>H1</h1>
+			<article>
+				articles
+			</article>
+		</section>
+		<aside>
+		 	Aside
+		 	<article>
+				articles
+			</article>
+		</aside>
+		<section class="extras">
+			<h4>H4</h4>
+			Extras
+		</section>
+		<footer>
+			Footer
+		</footer>
+	</div>
+</body>
+</html>
