@@ -18,7 +18,7 @@ $('document').ready(function () {
 	    	marg = {'margin':'0'};
     	}
     	$(fi).click(function(){
-    		$("body").animate({scrollTop: $(tli).offset().top-80}, 1500)
+    		$("body").animate({scrollTop: $(tli).offset().top-80}, 2000,'swing')
     	})
         $(fi).mouseenter(function (e){
         	if(nav){
@@ -28,14 +28,14 @@ $('document').ready(function () {
 	    	}
         	if(($(tli).width()/$(tli).parent().width())<'.26'){
         		$(self).css('background','#e9e9e9');
-                $(tli).animate({'width': '50%', 'padding-bottom':'50%', 'margin':'15px 25%'}, 200);
-                $($(tli).children('p')).animate({'margin':'1em 0'});
+                $(tli).animate({'width': '50%', 'padding-bottom':'50%', 'margin':'15px 25%'}, 200,'swing');
+                $($(tli).children('p')).animate({'margin':'1em 0'},200,'swing');
                 $($(tli).children('dfn')).show();
             }
         });
 	    $(fi).mouseleave(function () {
-	        $(tli).animate({'width': '25%', 'padding-bottom':'25%', 'margin':'15px 37.5%'}, 200);
-	        $($(tli).children('p')).animate(marg);
+	        $(tli).animate({'width': '25%', 'padding-bottom':'25%', 'margin':'15px 37.5%'}, 200,'swing');
+	        $($(tli).children('p')).animate(marg,200,'swing');
 	        $($(tli).children('dfn')).hide();
 	        $(self).css('background','');
 	    });

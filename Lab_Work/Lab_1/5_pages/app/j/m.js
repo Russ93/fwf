@@ -10,9 +10,10 @@ window.onload = function (){
 			
 			if(c){
 				$(this).prepend('Sure?<span>No</span><span>Yes</span>');
+				$(this).unbind();
 				c = false;
 			}else{
-				$(this).empty();
+				$(this).children('span:contains(No)').click(function(){})
 			}
 			console.log(c)
 			$(this).children('span:contains(delete)').remove()
