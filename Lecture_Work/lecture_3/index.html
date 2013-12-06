@@ -18,6 +18,7 @@
 <body>
     <script>
         myapp = angular.module('myapp', []);
+        console.log(this)
         myapp.controller('testcontroller', function($scope) {
             //this = $scope
             $scope.getAlert = function () {
@@ -26,7 +27,7 @@
             $scope.name = 'joe';
             $scope.db = ['first', 'last'];
             $scope.changeContent = function () {
-                $scopr.page = 'template2.html';
+                $scope.page = 'template2.html';
             }
         })
         myapp.controller('secondController', function($scope){
