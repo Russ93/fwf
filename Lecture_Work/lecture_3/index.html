@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app='myapp'>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Title</title>
+    <link href='http://fonts.googleapis.com/css?family=Lato:300|Quicksand' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="c/normalize.css">
+    <link rel="stylesheet" href="c/main.css">
+    <!--***** Styles *****-->
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource.min.js"></script>
+    <script src="j/m.js"></script>
+    <!--***** Scripts *****-->
+</head>
+
+<body>
+    <script>
+        myapp = angular.module('myapp', []);
+        myapp.controller('testcontroller', function($scope) {
+            //this = $scope
+            $scope.getAlert = function () {
+                alert('call');
+            }
+            $scope.name = 'joe';
+            $scope.db = ['first', 'last'];
+            $scope.changeContent = function () {
+                $scopr.page = 'template2.html';
+            }
+        })
+        myapp.controller('secondController', function($scope){
+            $scope.name='orecun';
+        })
+    </script>
+    <div data-ng-include data-src="'head.html'"></div>
+    <div ng-controller='testcontroller'>
+        <input type="text" ng-model="name" />
+        <ul>
+            <li ng-repeat="vals in db">{{vals}}</li>
+        </ul>
+        <button>{{name}}</button>
+        <button ng-click='getAlert()'>get Alert</button>
+        <button ng-click='changeContent()'>get Alert</button>
+    </div>
+    <div ng-controller='secondController'>
+        <p>{{name}}</p>
+    </div>
+</body>
+
+</html>

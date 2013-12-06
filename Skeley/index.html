@@ -8,8 +8,8 @@
 	<link rel="stylesheet" href="c/main.css">
 	<!--***** Styles *****-->
 	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-	<script src="http://underscorejs.org/underscore.js"></script>
-	<script src="http://backbonejs.org/backbone.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource.min.js"></script>
 	<script src="j/m.js"></script>
 	<!--***** Scripts *****-->
 </head>
@@ -33,19 +33,5 @@
 	<footer>
 	
 	</footer>
-	<script>
-	 	SearchView = Backbone.View.extend({
-	        initialize: function(){
-	            this.render();
-	        },
-	        render: function(){
-			    //Compile the template using underscore
-			    var template = _.template($('#search_template').html(), {});
-			    // Load the compied HTML into the backbone 'el'
-			    this.$el.html(template);
-			    }
-			});
-	    var search_view = new SearchView({el: $('#search_container')});
-	</script>
 </body>
 </html>
