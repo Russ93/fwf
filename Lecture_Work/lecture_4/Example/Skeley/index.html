@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app='app'>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Title</title>
+    <!--***** Styles *****-->
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+    <script>
+        app = angular.module('app', ['ngRoute']);
+        app.config(function($routeProvider) {
+            $routeProvider
+                .when("/", {
+                    controller: 'homeController',
+                    templateUrl: 'views/home.html'
+                })
+                .when('/about', {
+                    controller: 'aboutController',
+                    templateUrl: 'views/about.html'
+                })
+                .when('/blog', {
+                    controller: 'aboutController',
+                    templateUrl: 'views/blog.html'
+                })
+                .when('/contact', {
+                    controller: 'aboutController',
+                    templateUrl: 'views/contact.html'
+                })
+                .otherwise({
+                    redirectTo: '/Example/Skeley/index.html#'
+                })
+        })
+         app.controller('homeController', function($scope, $http) {
+
+                $scope.tryLogin = function () {
+                    $http.jsonp("http://otagtekin.com/lab4.php?action=logincheck&username="+$('#username').val()+"&password="+$('#password').val()+"&callback=JSON_CALLBACK")
+                        .success(function(json) {
+                            console.log(json);
+                            console.log('Username:'+$('#username').val()+'pass:'+$('#password').val());
+                            if (json[0].login == 'true') {
+                                alert('You logged in')
+                            } else {
+                                alert("Hes dead Jim")
+                            }
+                        })
+                }
+        });
+        app.controller('aboutController', function($scope) {
+            //            alert('About loaded')
+        })
+    </script>
+    <!--***** Scripts *****-->
+    <div data-ng-include data-src="'model/head.html'"></div>
+</head>
+
+<body>
+    <div data-ng-include data-src="'model/nav.html'"></div>
+    <div class="section">
+        <div class="container">
+            <ng-view></ng-view>
+        </div>
+    </div>
+    <!-- section -->
+    <div data-ng-include data-src="'model/footer.html'"></div>
+</body>
+
+</html>

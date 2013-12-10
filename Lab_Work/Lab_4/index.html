@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="ad">
+
+<head>
+    <title>Lab 4 Ads</title>
+    <!-- Styles -->
+    <link href='http://fonts.googleapis.com/css?family=Fenix|Lato|Raleway:300' rel='stylesheet' type='text/css'>
+    <style>html{font-family: 'Lato', 'Avenir', sans-serif;}h1,h2,h3,h4,h5,h6,span{font-family: 'Fenix','Raleway', serif; font-weight: 300;}ul li{list-style:none;}</style>
+    <!-- JavaScript -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-resource.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+    <script>
+          ad = angular.module('ad',['ngRoute']);
+          ad.config(function($routeProvider) {
+              $routeProvider
+              .when("/",{
+                  controller:'ad1',
+                  templateUrl:'content/ads.htm'
+              }).otherwise("/",{
+                  controller:'ad1',
+                  templateUrl:'content/ads.htm'
+              })
+          })
+          ad.controller('ad1', function($scope,$http) {
+              $http.jsonp('http://otagtekin.com/lab4.php?action=getAds&username=student&password=1234&callback=JSON_CALLBACK')
+              .success(function(json) {
+                  $scope.ads = json[0].ads;
+              })
+          })
+      </script>
+  </head>
+
+  <body>
+      <ng-view></ng-view>
+  </body>
+</html>
