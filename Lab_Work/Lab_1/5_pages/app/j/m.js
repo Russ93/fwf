@@ -2,9 +2,13 @@
 window.onload = function (){
 	var tabs = $('aside ul li')
 	$('section textarea').css('height',$(window).height()-152);
-	$('aside').css('height',$(window).height()-92);
+	if($('aside').height()<=$(window).height()-92){
+		$('aside').css('height',$(window).height()-92);	
+	}else{
+		$('aside').css('overflow','scroll')
+	}
 	for(var i=0;i<tabs.length;i++){
-		$($(tabs[i]).children('p')).html($(tabs[i]).children('p').text().substr(0, 250))
+		$($(tabs[i]).children('p')).html($(tabs[i]).children('p').text().substr(0, 200))
 		$($(tabs[i]).children('div')).click(function(){
 			var c = true;
 			

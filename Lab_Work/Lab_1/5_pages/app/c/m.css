@@ -105,9 +105,12 @@ aside ul div{
 aside ul li h3{
 	width: 80%;
 	margin-right: 0;
+	white-space: nowrap;
 }
 aside ul li div{
 	padding: 1em 0;
+	background: #f6f2f1;
+	z-index: 3;
 }
 aside ul li span{
 	margin: 0 10px;
@@ -137,4 +140,9 @@ section input[type="text"]{
 	font-size: 1.5em;
 	width: 100%;
 	margin: 10px 0;
+}
+@media (max-width: 695px){
+aside ul li p{
+	display: none;
+}
 }

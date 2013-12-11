@@ -36,7 +36,7 @@
          app.controller('homeController', function($scope, $http) {
 
                 $scope.tryLogin = function () {
-                    $http.jsonp("http://otagtekin.com/lab4.php?action=logincheck&username="+$('#username').val()+"&password="+$('#password').val()+"&callback=JSON_CALLBACK")
+                    $http.jsonp("http://otagtekin.com/lab4.php?action=logincheck&username="+$scope.un+"&password="+$scope.pass+"&callback=JSON_CALLBACK")
                         .success(function(json) {
                             console.log(json);
                             console.log('Username:'+$('#username').val()+'pass:'+$('#password').val());

@@ -4,8 +4,8 @@
         <div class="box">
             <h1>Sign In</h1>
             <form>
-                <input type="text" name="Username" placeholder="Username" id="username"/>
-                <input type="text" name="Password" placeholder="Password" id="password"/>
+                <input type="text" name="Username" placeholder="Username" id="username" ng-model="un"/>
+                <input type="text" name="Password" placeholder="Password" id="password" ng-model="pass"/>
                 <button ng-click="tryLogin()">Sign In</button>
             </form>
             <h1>Titles:</h1>
