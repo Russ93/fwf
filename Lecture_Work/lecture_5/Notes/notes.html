@@ -5,5 +5,27 @@ $scope.dataArr = [{"name": "russell", "id": 1}, {"name": "BOB", "id": 2}];
 $scope.selectedSongs = function () {
     $scope.playList = $filter('filter')($scope.dataArr, {checked: true});
 }
+
+app.service('myService', function() {
+
+  // service is just a constructor function
+  // that will be called with 'new'
+
+  this.sayHello = function(name) {
+     return "Hi " + name + "!";
+  };
+});
+
+app.factory('myFactory', function() {
+
+  // factory returns an object
+  // you can run some code before
+
+  return {
+    sayHello : function(name) {
+      return "Hi " + name + "!";
+    }
+  }
+});
 </script>
 <input name="{{song.url}}" id="{{song.name}}" ng-model="dataArr.name" ng-change="selectedSongs()">

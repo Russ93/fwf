@@ -1,0 +1,46 @@
+<div class="container" ng-controller="crudController">
+    <div class="row">
+        <div class="box">
+            
+            
+            
+            
+            <h1>CRUD</h1>
+            <h2>Something</h2>
+            
+            
+            
+            
+            
+            <ul ng-model="users">
+                <li data-ng-repeat="user in users" data-ng-model="usersModel">
+                    <p>{{user.name}}</p>
+                    <a id={{user.id}} ng-click="usersModel.deleteUser(user.id)">delete</a>
+                </li>
+            </ul>
+            
+<!--
+            <tr data-ng-repeat="product in products | filter: search">
+		        <td>{{ product.Code}}</td>
+		        <td colspan="8">{{ product.Name}}</td>
+		    </tr>
+
+            
+            
+            Naam:<input type="text" required data-ng-model="user.Name"/>
+            <input type="submit" value="Opslaan" />
+-->
+            
+            
+            <form data-ng-submit="submitUser()">
+            Add User:<input data-ng-model="name" type="text"/>
+            <button ng-click="addUser()">Add User</button>
+            </form>
+            
+            
+            
+            
+        </div>
+    </div>
+</div>
+<!-- /.container -->

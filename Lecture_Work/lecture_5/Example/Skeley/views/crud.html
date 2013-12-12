@@ -7,12 +7,20 @@
             
             <h1>CRUD</h1>
             <h2>Something</h2>
+            <ul data-ng-repeat="user in users">
+                    <li>{{ user.name}}</li><a id={{user.id}} ng-click="usersModel.deleteUser(user.id,$scope)">delete</a>
+            </ul>
+<!--
             <ul ng-model="users">
+                <ul data-ng-repeat="user in users">
+                    <li>{{ user.name}}</li><a id={{user.id}} ng-click="usersModel.deleteUser(user.id,$scope)">delete</a>
+                </ul>
                 <li data-ng-repeat="user in users" data-ng-model="usersModel">
                     {{user.name}}
-                    <a id={{user.id}} ng-click="usersModel.deleteUser(user.id)">delete</a>
+                    <a id={{user.id}} ng-click="usersModel.deleteUser(user.id,$scope)">delete</a>
                 </li>
             </ul>
+-->
             <input data-ng-model="name" type="text"/><button ng-click="addUser()">Add User</button>
             
         </div>
