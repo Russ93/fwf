@@ -125,7 +125,7 @@
 					console.log($scope.users)
 				}
 				$scope.submitUser = function () { //$scope.submitProduct
-					    dataArr.push({'name': $scope.users.user, 'id': $scope.users[$scope.users.length].id+1});
+					    dataArr.push({'name': $scope.users.user, 'id': $scope.users[dataArr].id+1});
 					    console.log($scope.dataArr); //$scope.products
 					
 					/*     $scope.showOverlay = false; */
