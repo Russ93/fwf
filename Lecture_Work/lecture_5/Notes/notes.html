@@ -1,5 +1,9 @@
 
 <script>
+$scope.dataArr = [{"name": "russell", "id": 1}, {"name": "BOB", "id": 2}];
 
-
+$scope.selectedSongs = function () {
+    $scope.playList = $filter('filter')($scope.dataArr, {checked: true});
+}
 </script>
+<input name="{{song.url}}" id="{{song.name}}" ng-model="dataArr.name" ng-change="selectedSongs()">

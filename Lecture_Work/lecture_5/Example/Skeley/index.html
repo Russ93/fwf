@@ -11,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
     <script>
         app = angular.module('app', ['ngRoute', 'ngResource']);
-        
+        var dataArr = []
         app.config(function($routeProvider) {
             $routeProvider
                 .when('/', {
@@ -83,7 +83,6 @@
                                  "id": id
                              });
                              console.log(data.Data);
-                            
                       });
                         
 
@@ -101,19 +100,16 @@
                             }//for loop
                         })//userdata.get
                     },//getUser
-                    deleteUser: function(index) {// the index finds the index of the object clicked check ng-click
+                    deleteUser: function(id) {// the index finds the index of the object clicked check ng-click
                         userdata.get(function(data) {
-                            
-                            if(data.Data[index]){
-                                data.Data.splice(index, 1); 
-                                console.log(data.Data)
-                                   
-                                
-//                                callback(null, data);
-                            }else{
-//                                callback('Index not found', []);
-                            }
-                            
+                            for(z in data.Data) {
+                                if(data.Data[z].id == id) {
+                                    var selectedUser = data.Data[z]
+                                    $('li:contains('+selectedUser.name+')').hide();
+                                    console.log(selectedUser)
+                                    data.Data.splice(z, 1);
+                                }// if
+                            }//for loop
                         })//user.data
                     }//delete User
                 }// return
