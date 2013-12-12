@@ -74,15 +74,19 @@
             app.factory('users', function($http,userdata) {
                 return {
                     createUser: function(name){
+                        
+                     userdata.get(function(data) {
                          
-                          var id = dataArr[dataArr.length - 1].id + 1;
-                            dataArr.push({
+                          var id = data.Data[data.Data.length - 1].id + 1;
+                            data.Data.push({
                                  "name" : name,
                                  "id": id
                              });
-                           console.log(dataArr)
+                             console.log(data.Data);
+                      });
+                        
 
-                    },//createUser
+                    },
                     getUsers: function(callback) {
                         // $http.get('data.json').success(callback);
                         userdata.get(callback)
@@ -97,14 +101,16 @@
                         })//userdata.get
                     },//getUser
                     deleteUser: function(id) {// the index finds the index of the object clicked check ng-click
-                        for(z in dataArr) {
-                            if(dataArr[z].id == id) {
-                                var selectedUser = dataArr[z]
-/*                                     $('li:contains('+selectedUser.name+')').hide(); */
-                                console.log(selectedUser)
-                                dataArr.splice(z, 1);
-                            }// if
-                        }//for loop
+                        userdata.get(function(data) {
+                            for(z in data.Data) {
+                                if(data.Data[z].id == id) {
+                                    var selectedUser = data.Data[z]
+                                    $('li:contains('+selectedUser.name+')').hide();
+                                    console.log(selectedUser)
+                                    data.Data.splice(z, 1);
+                                }// if
+                            }//for loop
+                        })//user.data
                     }//delete User
                 }// return
             })// app.factory
@@ -112,15 +118,9 @@
             app.controller('crudController', function($scope,users,$routeParams) {
                 users.getUsers(function(response) {
                     $scope.usersModel = users;
-                    dataArr = response.Data;
-                    ready()
+                    $scope.users = response.Data;
                 });
-                //-------------------- Understanding --------------------//
-                function ready(){
-                    $scope.users = dataArr; //$scope.products
-					console.log($scope.users)
-				}
-                //-------------------- Understanding --------------------//
+                
 //                if(!$route)
                 $scope.addUser = function  () {
                    users.createUser($scope.name);

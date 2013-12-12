@@ -7,34 +7,13 @@
             
             <h1>CRUD</h1>
             <h2>Something</h2>
-            
-            
-            
-            
-            
             <ul ng-model="users">
                 <li data-ng-repeat="user in users" data-ng-model="usersModel">
-                    <p>{{user.name}}</p>
+                    {{user.name}}
                     <a id={{user.id}} ng-click="usersModel.deleteUser(user.id)">delete</a>
                 </li>
             </ul>
-            
-<!--
-            <tr data-ng-repeat="product in products | filter: search">
-		        <td>{{ product.Code}}</td>
-		        <td colspan="8">{{ product.Name}}</td>
-		    </tr>
-
-            
-            
-            Naam:<input type="text" required data-ng-model="user.Name"/>
-            <input type="submit" value="Opslaan" />
--->
-            
             <input data-ng-model="name" type="text"/><button ng-click="addUser()">Add User</button>
-            
-            
-            
             
         </div>
     </div>
