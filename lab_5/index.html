@@ -125,11 +125,8 @@
 					console.log($scope.users)
 				}
 				$scope.submitUser = function () { //$scope.submitProduct
-					    console.log('before: ' + $scope.users.length); //$scope.products.length
-					
-					    $scope.users.push({'name': $scope.users.user, 'id': $scope.users[$scope.users.length].id+1});
-					    console.log('after:' + $scope.users.length); //$scope.products.length
-					    console.log($scope.users); //$scope.products
+					    dataArr.push({'name': $scope.users.user, 'id': $scope.users[$scope.users.length].id+1});
+					    console.log($scope.dataArr); //$scope.products
 					
 					/*     $scope.showOverlay = false; */
 				};
