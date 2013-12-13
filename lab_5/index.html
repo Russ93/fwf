@@ -12,7 +12,7 @@
     <script>
         app = angular.module('app', ['ngRoute', 'ngResource']);
         var dataArr = []
-        app.config(function($routeProvider) {
+         app.config(function($routeProvider) {
             $routeProvider
                 .when('/', {
                     controller: 'homeController',
@@ -34,106 +34,112 @@
                     controller: 'homeController',
                     templateUrl: 'views/home.html'
                 })
-            })
-            
-            app.controller('homeController', function($scope,$http) {
-//                // http://api.ihackernews.com/page?format=jsonp
-//                
-//                $http.jsonp('http://api.ihackernews.com/page?format=jsonp&callback=JSON_CALLBACK')
-//                .success(function(json) {
-//                    console.log(json);
-//                    
-//                    $scope.data= json.items;
-//                })
-//                alert("Home Loaded");
-            })
-            
-            app.controller('loginController', function($scope,$http) {
-//                $scope.tryLogin = function() {
-//                    var pass = $("#password").val();
-//                    var un = $("#username").val();
-//                    
-//                    $http.jsonp('http://otagtekin.com/lab4.php?action=logincheck&username='+un+'&password='+pass+'&callback=JSON_CALLBACK')
-//                    .success(function(json) {
-//                        console.log(json);
-//                        
-//                        if(json[0].login=="true") {
-//                            alert("Good Login");
-//                        } else {
-//                            alert("Bad Login");
-//                        }
-////                        $scope.data= json.items;
-//                    })
-//                }
-            })
-            
-            app.factory('userdata', function($resource) {
-                return $resource('model/data.json',{},{isArray:true});
-            })
-            
-            app.factory('users', function($http,userdata) {
-                return {
-                    createUser: function(name){
-                         
-                          var id = dataArr[dataArr.length - 1].id + 1;
-                            dataArr.push({
-                                 "name" : name,
-                                 "id": id
-                             });
-                           console.log(dataArr)
+        })
 
-                    },//createUser
-                    getUsers: function(callback) {
-                        // $http.get('data.json').success(callback);
-                        userdata.get(callback)
-                    },
-                    getUser: function(id,callback) {
-                        userdata.get(function(data) {
-                            for(z in data.Data) {
-                                if(data.Data[z].id == id) {
-                                    callback({"Data":[data.Data[z]]})
-                                }// if
-                            }//for loop
-                        })//userdata.get
-                    },//getUser
-                    deleteUser: function(id) {// the index finds the index of the object clicked check ng-click
-                        for(z in dataArr) {
-                            if(dataArr[z].id == id) {
+         app.controller('homeController', function($scope, $http) {
+            //                // http://api.ihackernews.com/page?format=jsonp
+            //                
+            //                $http.jsonp('http://api.ihackernews.com/page?format=jsonp&callback=JSON_CALLBACK')
+            //                .success(function(json) {
+            //                    console.log(json);
+            //                    
+            //                    $scope.data= json.items;
+            //                })
+            //                alert("Home Loaded");
+        })
+
+         app.controller('loginController', function($scope, $http) {
+            //                $scope.tryLogin = function() {
+            //                    var pass = $("#password").val();
+            //                    var un = $("#username").val();
+            //                    
+            //                    $http.jsonp('http://otagtekin.com/lab4.php?action=logincheck&username='+un+'&password='+pass+'&callback=JSON_CALLBACK')
+            //                    .success(function(json) {
+            //                        console.log(json);
+            //                        
+            //                        if(json[0].login=="true") {
+            //                            alert("Good Login");
+            //                        } else {
+            //                            alert("Bad Login");
+            //                        }
+            ////                        $scope.data= json.items;
+            //                    })
+            //                }
+        })
+
+         app.factory('userdata', function($resource) {
+            return $resource('model/data.json', {}, {
+                isArray: true
+            });
+        })
+
+         app.factory('users', function($http, userdata) {
+            return {
+                createUser: function(name) {
+
+                    var id = dataArr[dataArr.length - 1].id + 1;
+                    dataArr.push({
+                        "name": name,
+                        "id": id
+                    });
+                    console.log(dataArr)
+
+                }, //createUser
+                getUsers: function(callback) {
+                    // $http.get('data.json').success(callback);
+                    userdata.get(callback)
+                },
+                getUser: function(id, callback) {
+                    userdata.get(function(data) {
+                        for (z in data.Data) {
+                            if (data.Data[z].id == id) {
+                                callback({
+                                    "Data": [data.Data[z]]
+                                })
+                            } // if
+                        } //for loop
+                    }) //userdata.get
+                }, //getUser
+                deleteUser: function(id) { // the index finds the index of the object clicked check ng-click
+                    if(dataArr.length >= 2){
+                        for (z in dataArr) {
+                            if (dataArr[z].id == id) {
                                 var selectedUser = dataArr[z]
                                 console.log(selectedUser)
                                 dataArr.splice(z, 1);
-                            }// if
-                        }//for loop
-                    }//delete User
-                }// return
-            })// app.factory
-            
-            app.controller('crudController', function($scope,users,$routeParams) {
-                users.getUsers(function(response) {
-                    $scope.usersModel = users;
-                    dataArr = response.Data;
-                    ready()
-                });
-                //-------------------- Understanding --------------------//
-                function ready(){
-                    $scope.users = dataArr; //$scope.products
-					console.log($scope.users)
-				}
-                //-------------------- Understanding --------------------//
-//                if(!$route)
-                $scope.addUser = function  () {
-                   users.createUser($scope.name);
-                }
-                
-                if($routeParams.id != 0) {
-                    users.getUser($routeParams.id, function(results) {
-                        console.log(results);
-                        $scope.user = results.Data[0];
-                    })
-                }
-                
-                
-            })
+                            } // if
+                        } //for loop
+                    }//if dataArr.length
+                } //delete User
+            } // return
+        }) // app.factory
+
+         app.controller('crudController', function($scope, users, $routeParams) {
+            users.getUsers(function(response) {
+                $scope.usersModel = users;
+                dataArr = response.Data;
+                ready()
+            });
+            //-------------------- Understanding --------------------//
+            function ready() {
+                $scope.users = dataArr; //$scope.products
+                console.log($scope.users)
+            }
+            //-------------------- Understanding --------------------//
+            //                if(!$route)
+            $scope.addUser = function() {
+                users.createUser($scope.name);
+            }
+
+            if ($routeParams.id != 0) {
+                users.getUser($routeParams.id, function(results) {
+                    console.log(results);
+                    $scope.user = results.Data[0];
+                })
+            }
+
+
+        })
     </script>
     <!--***** Scripts *****-->
     <div data-ng-include data-src="'model/head.html'"></div>
