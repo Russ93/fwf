@@ -1,37 +1,154 @@
 <!DOCTYPE html>
-<html>
+<html ng-app='app'>
+
 <head>
-	<meta charset=utf-8 />
-	<title>Title</title>
-	<link href='http://fonts.googleapis.com/css?family=Lato:300|Quicksand' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="c/normalize.css">
-	<link rel="stylesheet" href="c/main.css">
-	<!--***** Styles *****-->
-	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource.min.js"></script>
-	<script src="j/m.js"></script>
-	<!--***** Scripts *****-->
+    <meta charset=utf-8 />
+    <title>Title</title>
+    <!--***** Styles *****-->
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-resource.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+    <script>
+        app = angular.module('app', ['ngRoute', 'ngResource']);
+        var dataArr = []
+        app.config(function($routeProvider) {
+            $routeProvider
+                .when('/', {
+                    controller: 'homeController',
+                    templateUrl: 'views/home.html'
+                })
+                .when('/login', {
+                    controller: 'loginController',
+                    templateUrl: 'views/login.html'
+                })
+                .when('/crud', {
+                    controller: 'crudController',
+                    templateUrl: 'views/crud.html'
+                })
+                .when('/crud/:id', {
+                    controller: 'crudController',
+                    templateUrl: 'views/section1.html'
+                })
+                .otherwise({
+                    controller: 'homeController',
+                    templateUrl: 'views/home.html'
+                })
+            })
+            
+            app.controller('homeController', function($scope,$http) {
+//                // http://api.ihackernews.com/page?format=jsonp
+//                
+//                $http.jsonp('http://api.ihackernews.com/page?format=jsonp&callback=JSON_CALLBACK')
+//                .success(function(json) {
+//                    console.log(json);
+//                    
+//                    $scope.data= json.items;
+//                })
+//                alert("Home Loaded");
+            })
+            
+            app.controller('loginController', function($scope,$http) {
+//                $scope.tryLogin = function() {
+//                    var pass = $("#password").val();
+//                    var un = $("#username").val();
+//                    
+//                    $http.jsonp('http://otagtekin.com/lab4.php?action=logincheck&username='+un+'&password='+pass+'&callback=JSON_CALLBACK')
+//                    .success(function(json) {
+//                        console.log(json);
+//                        
+//                        if(json[0].login=="true") {
+//                            alert("Good Login");
+//                        } else {
+//                            alert("Bad Login");
+//                        }
+////                        $scope.data= json.items;
+//                    })
+//                }
+            })
+            
+            app.factory('userdata', function($resource) {
+                return $resource('model/data.json',{},{isArray:true});
+            })
+            
+            app.factory('users', function($http,userdata) {
+                return {
+                    createUser: function(name){
+                        
+                     userdata.get(function(data) {
+                         
+                          var id = data.Data[data.Data.length - 1].id + 1;
+                            data.Data.push({
+                                 "name" : name,
+                                 "id": id
+                             });
+                             console.log(data.Data);
+                      });
+                        
+
+                    },
+                    getUsers: function(callback) {
+                        // $http.get('data.json').success(callback);
+                        userdata.get(callback)
+                    },
+                    getUser: function(id,callback) {
+                        userdata.get(function(data) {
+                            for(z in data.Data) {
+                                if(data.Data[z].id == id) {
+                                    callback({"Data":[data.Data[z]]})
+                                }// if
+                            }//for loop
+                        })//userdata.get
+                    },//getUser
+                    deleteUser: function(id) {// the index finds the index of the object clicked check ng-click
+                        userdata.get(function(data) {
+                            for(z in data.Data) {
+                                if(data.Data[z].id == id) {
+                                    var selectedUser = data.Data[z]
+                                    $('li:contains('+selectedUser.name+')').hide();
+                                    console.log(selectedUser)
+                                    data.Data.splice(z, 1);
+                                }// if
+                            }//for loop
+                        })//user.data
+                    }//delete User
+                }// return
+            })// app.factory
+            
+            app.controller('crudController', function($scope,users,$routeParams) {
+                users.getUsers(function(response) {
+                    $scope.usersModel = users;
+                    $scope.users = response.Data;
+                });
+                
+//                if(!$route)
+                $scope.addUser = function  () {
+                   users.createUser($scope.name);
+                }
+                
+                if($routeParams.id != 0) {
+                    users.getUser($routeParams.id, function(results) {
+                        console.log(results);
+                        $scope.user = results.Data[0];
+                    })
+                }
+                
+                
+            })
+    </script>
+    <!--***** Scripts *****-->
+    <div data-ng-include data-src="'model/head.html'"></div>
 </head>
+
 <body>
-	<nav>
-		<ul>
-			<li></li>
-			<li></li>
-			<li></li>
-		</ul>
-	</nav>
-	<header>
-	
-	</header>
-	<section>
-	
-	</section>
-	<aside>
-	
-	</aside>
-	<footer>
-	
-	</footer>
+    <div data-ng-include data-src="'model/nav.html'"></div>
+    <div class="section">
+        <div class="container">
+            <ng-view></ng-view>
+        </div>
+    </div>
+    <!-- section -->
+    <div data-ng-include data-src="'model/footer.html'"></div>
 </body>
+
 </html>
