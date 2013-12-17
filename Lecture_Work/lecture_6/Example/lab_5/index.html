@@ -16,23 +16,23 @@
         iapp = angular.module('inv', ['ngResource'])
          iapp.config(function($routeProvider) { //Route provider
             $routeProvider
-                .when('/', {
+                .when('http://russ93.github.io/fwf/Lab_Work/lab_6/', {
                     controller: 'homectrl',
                     templateUrl: 'views/login.html'
                 })
-                .when('/home/:user', {
+                .when('http://russ93.github.io/fwf/Lab_Work/lab_6/index.html#/home/:user', {
                     controller: 'homectrl',
                     templateUrl: 'views/home.html'
                 })
-                .when('/add', {
+                .when('http://russ93.github.io/fwf/Lab_Work/lab_6/index.html#/add', {
                     controller: 'homectrl',
                     templateUrl: 'views/add.html'
                 })
-                .when('/delete/:id', {
+                .when('http://russ93.github.io/fwf/Lab_Work/lab_6/index.html#/delete/:id', {
                     controller: 'homectrl',
                     templateUrl: 'views/delete.html'
                 })
-                .when('/edit/:id', {
+                .when('http://russ93.github.io/fwf/Lab_Work/lab_6/index.html#/edit/:id', {
                     controller: 'homectrl',
                     templateUrl: 'views/edit.html'
                 })
