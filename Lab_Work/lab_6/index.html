@@ -50,14 +50,15 @@
                 createUser: function(input) {
                     $rootScope.input = input
                     var users = JSON.parse(localStorage.getItem('users'));
-                    users.push({
-                        $rootScope.input: {
-                            "data": [{
-                                "name": "Default Content"
-                            }]
-                        }
-                    })
-                    console.log(users)
+                    var defObj = {$rootScope.input: {"data": [{ "name": "Default Content" }] }}
+
+                    if(user != null){
+                        users.push(defObj)
+                        console.log(users)
+                        localStorage.setItem('users', JSON.stringify(users))
+                    }else{
+                        localStorage.setItem('users', JSON.stringify([defObj]))
+                    }
                     
                 },
                 createContent: function(input) {
