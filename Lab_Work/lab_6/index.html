@@ -48,9 +48,10 @@
          iapp.factory('createStuff', function($rootScope, $location) {
             return {
                 createUser: function(input) {
+                    $rootScope.input = input
                     var users = JSON.parse(localStorage.getItem('users'));
                     users.push({
-                        ''+input: {
+                        $rootScope.input: {
                             "data": [{
                                 "name": "Default Content"
                             }]
