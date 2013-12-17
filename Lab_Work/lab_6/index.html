@@ -50,11 +50,14 @@
                 createUser: function(input) {
                     var users = JSON.parse(localStorage.getItem('users'));
                     users.push({
-                        input: {
-                            "data": ["tacos"]
+                        ''+input: {
+                            "data": [{
+                                "name": "Default Content"
+                            }]
                         }
                     })
                     console.log(users)
+                    
                 },
                 createContent: function(input) {
 
@@ -95,8 +98,8 @@
         })
 
          iapp.controller('homectrl', function($scope, $rootScope, $location, $routeParams, getStuff, createStuff) {
-             console.log(document.URL)
-            var myurl = document.URL.split('http://russ93.github.io/fwf/Lab_Work/lab_6/index.html#/'),
+            console.log(document.URL)
+            var myurl = document.URL.split('http://russ93.github.io/fwf/Lab_Work/lab_6/index.html#'),
                 myurlsections = myurl[1].split('/'),
                 action = myurlsections[0],
                 id = myurlsections[1];
