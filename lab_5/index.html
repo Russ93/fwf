@@ -93,9 +93,7 @@
                     userdata.get(function(data) {
                         for (z in data.Data) {
                             if (data.Data[z].id == id) {
-                                callback({
-                                    "Data": [data.Data[z]]
-                                })
+                                callback({ "Data": [data.Data[z]] })
                             } // if
                         } //for loop
                     }) //userdata.get

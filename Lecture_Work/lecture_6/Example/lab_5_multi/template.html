@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html ng-app='inv'>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Title</title>
+    <style>
+        html{font-family: 'Lato','Avenir',helvetica,arial,sans-serif;}
+/*
+        label, button{float:left;}
+        input{clear:both;}
+*/
+    </style>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-resource.min.js"></script>
+    
+    <script>
+        iapp = angular.module('inv', ['ngResource'])
+        iapp.config(function($routeProvider){  //Route provider
+            $routeProvider
+            .when('/',{
+                controller: 'homectrl',
+                templateUrl: 'views/index.html'
+            })
+            .when('/add',{
+                controller: 'addctrl',
+                templateUrl : 'views/add.html'
+            })
+            .when('/delete/:id',{
+                controller: 'deletectrl',
+                templateUrl: 'views/delete.html'
+            })
+            .when('/edit/:id',{
+                controller:'editctrl',
+                templateUrl: 'views/edit.html'
+            })
+            .otherwise({
+                redirectTo: '/'
+            })
+        })
+        
+        
+        iapp.factory('itemData', function ($resource) { // App Factory
+            return $resource('data.json',{})
+        })
+        
+        iapp.run(function($rootScope,itemData){
+            itemData.get(function (response) {
+                $rootScope.data = response.inventory;
+                console.log(response)
+            })
+        })
+        
+        iapp.controller('homectrl', function ($scope,$rootScope) {
+            $scope.items = [
+        {
+            "name": "Red Apples",
+            "count": "10",
+            "description": [
+                    "Best Red Applesin the US",
+                    "Red Apples from CA"
+                ]
+            },
+        {
+            "name": "Blood Oranges",
+            "count": "5",
+            "description": [
+                    "Florida fine oranges",
+                    "Florida Oranges for the orange juice"
+                ]
+            }
+        ]
+            console.log($rootScope.data)
+        })
+        
+        iapp.controller('addctrl', function ($scope,$rootScope,$location) {
+            $scope.item = {"name": "Alan"}
+            $scope.add = function () {
+                $rootScope.data.push($scope.item)
+                $location.url('/index')
+            }
+        })
+        
+        iapp.controller('editctrl', function ($scope,$rootScope,$location,$routeParams) {
+            $scope.item = $rootScope.data[$routeParams.id]
+            $scope.update = function () {
+                $rootScope.data[$routeParams.id] = $scope.item
+                $location.url('/index')
+            }
+        })
+        
+        iapp.controller('deletectrl', function ($scope,$rootScope,$location,$routeParams) {
+            
+            $scope.del = function (){
+                $rootScope.data.splice($routeParams.id,1)
+                $location.url('/')
+            }
+            
+        })
+        
+        //delete controller itemData delete
+        
+        //addcontroller
+    </script>
+</head>
+
+<body>
+    
+    <h1><a href='template.html#//'>home</a></h1>
+    <a href="template.html#/add">Add Item</a>
+    
+    <div ng-view></div>
+    
+</body>
+</html>

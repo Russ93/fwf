@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html ng-app='inv'>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Title</title>
+    <style>
+        html{font-family: 'Lato','Avenir',helvetica,arial,sans-serif;}
+/*        label{display: block; width: 200px;}*/
+    </style>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-resource.min.js"></script>
+
+    <script>
+        iapp = angular.module('inv', ['ngResource'])
+         iapp.config(function($routeProvider) { //Route provider
+            $routeProvider
+                .when('/', {
+                    controller: 'homectrl',
+                    templateUrl: 'views/login.html'
+                })
+                .when('/home/:user', {
+                    controller: 'homectrl',
+                    templateUrl: 'views/home.html'
+                })
+                .when('/add', {
+                    controller: 'homectrl',
+                    templateUrl: 'views/add.html'
+                })
+                .when('/delete/:id', {
+                    controller: 'homectrl',
+                    templateUrl: 'views/delete.html'
+                })
+                .when('/edit/:id', {
+                    controller: 'homectrl',
+                    templateUrl: 'views/edit.html'
+                })
+                .otherwise({
+                    redirectTo: '/'
+                })
+        })
+
+
+         //         iapp.factory('itemData', function($resource) { // App Factory
+         //            return $resource('data.json', {})
+         //        })
+         iapp.factory('createStuff', function($rootScope, $location) {
+            return {
+                createUser: function(input) {
+                    var users = JSON.parse(localStorage.getItem('users'));
+                    users.push({
+                        input: {
+                            "data": ["tacos"]
+                        }
+                    })
+                    console.log(users)
+                },
+                createContent: function(input) {
+
+                } //createStuff
+            } //return
+        }) //'createStuff'
+         iapp.factory('getStuff', function($rootScope, $location) {
+            return {
+                //                getData: function() {
+                //                    itemData.get(function(response) {
+                //                        $rootScope.data = response.inventory;
+                //                        console.log(response)
+                //                    })//itemData.get
+                //                },//getData
+                getUsers: function(input) {
+                    //                    input = JSON.parse(input)
+                    console.log(input)
+                    var users = JSON.parse(localStorage.getItem('users'));
+                    for (var i in users) {
+                        var obj = users[i]
+                        for (key in obj) {
+                            if (key == input) {
+                                $rootScope.data = obj[key].data
+                                localStorage.setItem('signedIn', input)
+                                $location.url('/home/:' + input)
+                            }
+                        }
+                    }
+                    //                    $rootScope.data = users.student.data
+                    //                    console.log($rootScope.data)
+                    //                    $location.url('/home/:'+input)
+                }
+            } //return
+        }) //getFactory
+
+         iapp.factory('update', function() {
+            return {}
+        })
+
+         iapp.controller('homectrl', function($scope, $rootScope, $location, $routeParams, getStuff, createStuff) {
+            var myurl = document.URL.split('http://127.0.0.1:56485/index.html#/'),
+                myurlsections = myurl[1].split('/'),
+                action = myurlsections[0],
+                id = myurlsections[1];
+            $scope.items = $rootScope.data
+            $scope.leave = function() {
+                localStorage.setItem('signedIn', ' ')
+                $location.url('/')
+            }
+            if (action == "") {
+                getStuff.getUsers(localStorage.getItem('signedIn'))
+                $scope.login = function() {
+                    getStuff.getUsers($scope.username)
+                }
+                $scope.regis = function() {
+                    createStuff.createUser($scope.rUsername)
+                }
+                $rootScope.user = $scope.username;
+            } else if (action == '/home/:user') {
+                console.log($scope.items)
+                $scope.leave = function() {
+                    console.log('I was clicked')
+                    localStorage.setItem('signedIn', ' ')
+                    $location.url('/')
+                }
+            } else if (action == 'add') {
+                $scope.item = {}
+                $scope.add = function() {
+                    $rootScope.data.push($scope.item)
+                    $location.url('/home/:user')
+                }
+            } else if (action == 'edit') {
+                $scope.item = $rootScope.data[$routeParams.id]
+                $scope.update = function() {
+                    $rootScope.data[$routeParams.id] = $scope.item
+                    $location.url('/home/:user')
+                }
+            } else if (action == 'delete') {
+                $scope.del = function() {
+                    $rootScope.data.splice($routeParams.id, 1)
+
+                    $location.url('/')
+                }
+            } else {
+                getStuff.getUsers(localStorage.getItem('signedIn'))
+            }
+        })
+    </script>
+</head>
+
+<body>
+
+    <h1>
+        <a href='index.html#/'>Home</a>
+    </h1>
+
+    <div ng-view></div>
+
+</body>
+
+</html>

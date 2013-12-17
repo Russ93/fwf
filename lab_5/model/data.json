@@ -1,1 +1,9 @@
-{"Data": [{"name": "russell", "id": 1}, {"name": "BOB", "id": 2}]}
+{
+    "Data": [{
+        "name": "russell",
+        "id": 1
+    }, {
+        "name": "BOB",
+        "id": 2
+    }]
+}
