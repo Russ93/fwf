@@ -16,23 +16,23 @@
         iapp = angular.module('inv', ['ngResource'])
          iapp.config(function($routeProvider) { //Route provider
             $routeProvider
-                .when('http://russ93.github.io/fwf/Lab_Work/lab_6/', {
+                .when('/', {
                     controller: 'homectrl',
                     templateUrl: 'views/login.html'
                 })
-                .when('http://russ93.github.io/fwf/Lab_Work/lab_6/index.html#/home/:user', {
+                .when('/home/:user', {
                     controller: 'homectrl',
                     templateUrl: 'views/home.html'
                 })
-                .when('http://russ93.github.io/fwf/Lab_Work/lab_6/index.html#/add', {
+                .when('/add', {
                     controller: 'homectrl',
                     templateUrl: 'views/add.html'
                 })
-                .when('http://russ93.github.io/fwf/Lab_Work/lab_6/index.html#/delete/:id', {
+                .when('/delete/:id', {
                     controller: 'homectrl',
                     templateUrl: 'views/delete.html'
                 })
-                .when('http://russ93.github.io/fwf/Lab_Work/lab_6/index.html#/edit/:id', {
+                .when('/edit/:id', {
                     controller: 'homectrl',
                     templateUrl: 'views/edit.html'
                 })
@@ -95,7 +95,7 @@
         })
 
          iapp.controller('homectrl', function($scope, $rootScope, $location, $routeParams, getStuff, createStuff) {
-            var myurl = document.URL.split('http://russ93.github.io/fwf/Lab_Work/lab_6/index.html#/'),
+            var myurl = document.URL.split('http://127.0.0.1:56485/index.html#/'),
                 myurlsections = myurl[1].split('/'),
                 action = myurlsections[0],
                 id = myurlsections[1];
