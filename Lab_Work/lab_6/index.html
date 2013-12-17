@@ -40,24 +40,26 @@
                     redirectTo: '/'
                 })
         })
-
+//         iapp.run(function($rootScope,itemData){
+//            localStorage.setItem('users',JSON.stringify([{'username': 'student', "data": [{ "name": "Red Apples", "count": "10", "description": ["Best Red Applesin the US", "Red Apples from CA"] }, { "name": "Blood Oranges", "count": "5", "description": ["Florida fine oranges", "Florida Oranges for the orange juice"] }]},{'username': 'BOB', "data": ['sdfhgsg','sdfgsdfg']}])) 
+//         })
 
          //         iapp.factory('itemData', function($resource) { // App Factory
          //            return $resource('data.json', {})
          //        })
          iapp.factory('createStuff', function($rootScope, $location) {
             return {
-                createUser: function($rootScope,input) {
-                    $rootScope.input = input
+                createUser: function(input) {
                     var users = JSON.parse(localStorage.getItem('users'));
-                    var defObj = { 'student': { "data": [{ "name": "Red Apples", "count": "10", "description": ["Best Red Applesin the US", "Red Apples from CA"] }, { "name": "Blood Oranges", "count": "5", "description": ["Florida fine oranges", "Florida Oranges for the orange juice"] }] } };
-                    if(users != null){
+                    var defObj = {'username': input, "data": [{ "name": "Red Apples", "count": "10", "description": ["Best Red Applesin the US", "Red Apples from CA"] }, { "name": "Blood Oranges", "count": "5", "description": ["Florida fine oranges", "Florida Oranges for the orange juice"] }]};
+//                    if(users != null){
+                        console.log(defObj)
                         users.push(defObj)
                         console.log(users)
                         localStorage.setItem('users', JSON.stringify(users))
-                    }else{
-                        localStorage.setItem('users', JSON.stringify([defObj]))
-                    }
+//                    }else{
+//                        localStorage.setItem('users', JSON.stringify([defObj]))
+//                    }
                     
                 },
                 createContent: function(input) {
@@ -79,12 +81,12 @@
                     var users = JSON.parse(localStorage.getItem('users'));
                     for (var i in users) {
                         var obj = users[i]
-                        for (key in obj) {
-                            if (key == input) {
-                                $rootScope.data = obj[key].data
-                                localStorage.setItem('signedIn', input)
-                                $location.url('/home/:' + input)
-                            }
+                        console.log(obj)
+                        if (obj.username == input) {
+                            console.log(obj)
+                            $rootScope.data = obj.data
+                            localStorage.setItem('signedIn', input)
+                            $location.url('/home/:' + input)
                         }
                     }
                     //                    $rootScope.data = users.student.data
