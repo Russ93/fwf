@@ -1,0 +1,167 @@
+/*
+    Group Member Names: Jairo Jurado, Russell Benton, Tyrone Swinnie
+    App Name: Alertify
+*/
+
+/*--------------- Defaults --------------------*/
+html {
+	font-family: 'Lato', Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    font-size: 1em;
+	color: #333;
+	background-color: #dae2ea;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	padding: 0;
+	margin: 0;
+	font-family: 'Quicksand', 'Lato', helvetica, arial, sans-serif;
+}
+
+li{
+    font-size: 1em;
+    list-style-type: none;
+}
+
+p {
+	font: normal 1.2em/1.25 'Lato', arial, helvetica, sans-serif;
+}
+
+h1 {
+	font-size: 2.4em;
+	font-style: normal;
+	font-weight: 100;
+}
+h2 {
+	font-size: 2.4em;
+	font-style: normal;
+	font-weight: 100;
+}
+
+h3 {
+	font-size: 1.8em;
+	font-style: normal;
+	font-weight: 100;
+}
+
+button {
+	float:  right;
+}
+
+.date {
+	float: left;
+}
+
+.label {
+    color: #f26f21;
+}
+
+
+/*--------------- Main Pages --------------------*/
+.content {
+    text-align: center;
+    margin-top: 12%;
+}
+
+.buttons, button , input[type="button"], input[type="submit"], input[type="reset"] {
+  position: relative;
+  vertical-align: top;
+  width: 20%;
+  height: 60px;
+  padding: 0;
+  font-size: 22px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  background: #f38630;
+  border: 0;
+  border-bottom: 2px solid #e57529;
+  cursor: pointer;
+  -webkit-box-shadow: inset 0 -2px #e57529;
+  box-shadow: inset 0 -2px #e57529;
+    float: left;
+    margin-left: 40%;
+    margin-top: 5%;
+}
+
+.buttons:active,  button:active ,input[type=button]:active, input[type="button"]:active, input[type="submit"]:active, input[type="reset"]:active {
+  top: 1px;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+label {
+    font-size: 14pt;
+}
+
+input[type="text"] {
+    border: 2px solid #808285;
+    background-color: #fefefe;
+    color: #605f5f;
+    margin-bottom: 1%;
+    width: 20%;
+    margin-left: 2%;
+    font-size: 1em;
+}
+
+.content a {
+    margin: 0 0 0 1%;
+}
+
+.content a img {
+    width: 22px;
+    height: 22px;
+}
+
+.timer {
+    color: #f38630;
+    width: 30%;
+    margin: 2% 0 2% 36%;
+}
+
+#add {
+    float: right;
+    margin: -3% 7% 0 0;
+    text-decoration: none;
+    color: #f47d43;
+    text-shadow: rgba(0, 0, 0, 0.25);
+    font-size: 13pt;
+}
+.edit-add-blocks{
+    margin-left: 2%;
+}
+.content-blocks, .edit-add-blocks {
+    border: 2px solid #808285;
+    background-color: #e0e3c9;
+    width: 96%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.content-blocks em {
+    text-align: center;
+    margin-left: 5%;
+}
+
+.content ul li {
+    margin-bottom: 1%;
+    margin-top: 3%;
+}
+
+.edit-add-blocks p {
+    text-align: right;
+    float: left;
+    clear: left;
+    margin: 0 0 0 28%;
+    width: 15%;
+}
+
+.edit-add-blocks input[type="text"], .edit-add-blocks select {
+    float: left;
+}
+
+.edit-add-blocks select {
+    width: 20%;
+    margin-left: 2%;
+}

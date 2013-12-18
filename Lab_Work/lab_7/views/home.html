@@ -1,0 +1,33 @@
+<div class="content">
+    <ul>
+        <li class="content-blocks" ng-repeat="(i,item) in items">
+            <h3>{{item.name}}</h3>
+            <em>{{item.description}}</em>
+            <a href="#/edit/{{i}}"><img src='views/i/edit-icon.png' title='Edit' /></a>
+            <a href="#/delete/{{i}}"><img src='views/i/delete-icon.png' title='Delete'/></a>
+            <div time='{{item.time}}' class='timer'></div>
+        </li>
+    </ul>
+</div>
+
+<script>
+    var d = new Date(),
+        hour = d.getHours(),
+        min = d.getMinutes();
+//        sec = d.getSeconds,
+//        mill = d.getMilliseconds;
+    setTimeout(function() {
+            var lists = $('ul > li')
+            for (var i in lists) {
+                var thisItem = $(lists[i]).children('div').attr('time'),
+                    number = thisItem.split(":"),
+                    time = ((Number(number[0]) * 3600000)-(hour * 3600000 + min * 60000));
+                console.log(time)
+
+                        $($(lists[i]).children('div')).timeTo(time, function() {})
+
+                        //         $('#countdown-1').timeTo(($(this).siblings(.time).text()), setTime(){ alert('Countdown finished'); });
+
+                    }
+            }, 100)
+</script>

@@ -42,7 +42,7 @@
         })
          iapp.run(function(){
             if(localStorage.users == ''){
-                localStorage.setItem('users',JSON.stringify([{'username': 'student', 'password': 'password' , "data": [{ "name": "Red Apples", "count": "10", "description": ["Best Red Applesin the US", "Red Apples from CA"] }, { "name": "Blood Oranges", "count": "5", "description": ["Florida fine oranges", "Florida Oranges for the orange juice"] }]},{'username': 'BOB', 'password':'zxcvbnm9', "data": ['sdfhgsg','sdfgsdfg']}]))
+                localStorage.setItem('users',JSON.stringify([{'username': 'student', "data": [{ "name": "Red Apples", "count": "10", "description": ["Best Red Applesin the US", "Red Apples from CA"] }, { "name": "Blood Oranges", "count": "5", "description": ["Florida fine oranges", "Florida Oranges for the orange juice"] }]},{'username': 'BOB', "data": ['sdfhgsg','sdfgsdfg']}]))
             }
          })
 
@@ -53,7 +53,7 @@
             return {
                 createUser: function(input) {
                     var users = JSON.parse(localStorage.getItem('users'));
-                    var defObj = {'username': input.un , 'password': input.pass ,"data": [{ "name": "Red Apples", "count": "10", "description": ["Best Red Applesin the US", "Red Apples from CA"] }, { "name": "Blood Oranges", "count": "5", "description": ["Florida fine oranges", "Florida Oranges for the orange juice"] }]};
+                    var defObj = {'username': input, "data": [{ "name": "Red Apples", "count": "10", "description": ["Best Red Applesin the US", "Red Apples from CA"] }, { "name": "Blood Oranges", "count": "5", "description": ["Florida fine oranges", "Florida Oranges for the orange juice"] }]};
 //                    if(users != null){
                         console.log(defObj)
                         users.push(defObj)
@@ -80,16 +80,14 @@
                 getUsers: function(input) {
                     //                    input = JSON.parse(input)
                     console.log(input)
-//                    if(input == String){input = JSON.parse({input.username, input.password})}
-//                    input = JSON.parse({input.username, input.password})
                     var users = JSON.parse(localStorage.getItem('users'));
                     for (var i in users) {
                         var obj = users[i]
                         console.log(obj)
-                        if (obj.username == input.username && obj.password == input.password) {
+                        if (obj.username == input) {
                             console.log(obj)
                             $rootScope.data = obj.data
-//                            localStorage.setItem('signedIn', JSON.stringify{input.username, input.password})
+                            localStorage.setItem('signedIn', input)
                             $location.url('/home/:' + input)
                         }
                     }
@@ -106,7 +104,7 @@
 
          iapp.controller('homectrl', function($scope, $rootScope, $location, $routeParams, getStuff, createStuff) {
             console.log(document.URL)
-            var myurl = document.URL.split('http://127.0.0.1:60940/index.html#/'),
+            var myurl = document.URL.split('http://russ93.github.io/fwf/Lab_Work/lab_6/index.html#'),
                 myurlsections = myurl[1].split('/'),
                 action = myurlsections[0],
                 id = myurlsections[1];
@@ -118,10 +116,10 @@
             if (action == "") {
                 getStuff.getUsers(localStorage.getItem('signedIn'))
                 $scope.login = function() {
-                    getStuff.getUsers($scope.input)
+                    getStuff.getUsers($scope.username)
                 }
                 $scope.regis = function() {
-                    createStuff.createUser($scope.regis)
+                    createStuff.createUser($scope.rUsername)
                 }
                 $rootScope.user = $scope.username;
             } else if (action == '/home/:user') {

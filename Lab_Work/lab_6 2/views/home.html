@@ -1,0 +1,10 @@
+<a href="index.html#/add">Add Item</a>
+<br />
+<a ng-click='leave()'>Sign Out</a>
+<ul>
+    <li ng-repeat='(id,item) in items'>
+        {{item.name}}
+        <a href="#/edit/{{id}}">Edit</a> |
+        <a href="#/delete/{{id}}">Delete</a>
+    </li>
+</ul>

@@ -1,0 +1,17 @@
+[{
+    'username': 'student',
+    "data": [{
+        "name": "Red Apples",
+        "count": "10",
+        "description": ["Best Red Applesin the US", "Red Apples from CA"]
+    }, {
+        "name": "Blood Oranges",
+        "count": "5",
+        "description": ["Florida fine oranges", "Florida Oranges for the orange juice"]
+    }]
+}, {
+    'username': 'BOB',
+    "data": ['sdfhgsg', 'sdfgsdfg']
+}]
+
+[{'username': 'student', "data": [{ "name": "Red Apples", "count": "10", "description": ["Best Red Applesin the US", "Red Apples from CA"] }, { "name": "Blood Oranges", "count": "5", "description": ["Florida fine oranges", "Florida Oranges for the orange juice"] }]},{'username': 'BOB', "data": ['sdfhgsg','sdfgsdfg']}]

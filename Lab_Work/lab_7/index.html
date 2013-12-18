@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="inv">
+
+<head>
+    <meta charset="utf-8">
+    <title>Day 6 Practice</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="/views/j/jquery.timeTo.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-resource.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Quicksand|Lato:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="views/c/main.css">
+    <link rel="stylesheet" href="views/c/timeTo.css">
+</head>
+
+<body>
+    <h1>
+        <a href="#/index">
+            <img src='views/i/logo.png' />
+        </a>
+    </h1>
+    <a id='add' href="#/add">Add Reminder</a>
+
+    <script>
+        iapp = angular.module('inv', ['ngResource']);
+
+        iapp.config(function($routeProvider) {
+            $routeProvider
+                .when('/index', {
+                    controller: 'homectrl',
+                    templateUrl: 'views/index.html'
+                })
+                .when('/home', {
+                    controller: 'homectrl',
+                    templateUrl: 'views/home.html'
+                })
+                .when('/add', {
+                    controller: 'homectrl',
+                    templateUrl: 'views/add.html'
+                })
+                .when('/delete/:id', {
+                    controller: 'homectrl',
+                    templateUrl: 'views/delete.html'
+                })
+                .when('/edit/:id', {
+                    controller: 'homectrl',
+                    templateUrl: 'views/edit.html'
+                })
+                .otherwise({
+                    redirectTo: '/index'
+                })
+        })
+
+         iapp.directive('time', function() {
+            return {
+                link: function(scope, element, attrs) {
+                    console.log(scope.$eval(attrs));
+                }
+            }
+        });
+
+        iapp.run(function($rootScope) {
+
+            console.log("run")
+
+            localStorage.setItem("inventory", JSON.stringify([ { "name": "Do Something", "time": "10:00pm","description": 'Start a work out' }, { "name": "Blood Oranges", "count": "5", "description": [ "Florida's fine oranges", "Florida Oranges for orange juice" ] } ]))
+
+            $rootScope.data = JSON.parse(localStorage.getItem('inventory'));
+        })
+
+         iapp.controller('homectrl', function($scope, $rootScope, $location, $routeParams) {
+
+            var myurl = document.URL.split("http://127.0.0.1:63915/template.html#/"), //CHANGE THIS SHIT YO!!!
+                myurlaction = myurl[1].split("/"),
+                action = myurlaction[0];
+            if (action == 'index') {
+                $('#add').hide()
+                $scope.start = function() {
+                    $location.url('/home');
+                    console.log('i was clicked')
+                }
+            } else if (action == "home") {
+                $('#add').show()
+                $scope.items = $rootScope.data;
+
+
+
+                console.log("controller")
+
+
+                //                    var setTime = document.getElementsByClassName('timer');
+                //                    console.log(setTime)
+                //                    for(i in setTime){
+                //                        console.log(setTime[i])
+                //                    }
+                $('.timer').timeTo(100, function setTime() {
+                    alert('Countdown finished')
+                })
+
+                function convert() {
+
+                }
+            } else if (action == "add") {
+                $scope.item = {};
+                $scope.add = function() {
+                    $rootScope.data.push($scope.item);
+                    localStorage.setItem("inventory", JSON.stringify($rootScope.data))
+                    $location.url('/home');
+                }
+            } else if (action == "delete") {
+                $scope.del = function() {
+                    $rootScope.data.splice($routeParams.id, 1);
+                    localStorage.setItem("inventory", JSON.stringify($rootScope.data))
+                    $location.url('/home');
+                }
+            } else if (action == "edit") {
+                $scope.item = $rootScope.data[$routeParams.id];
+                $scope.update = function() {
+                    $rootScope.data[$routeParams.id] = $scope.item;
+                    localStorage.setItem("inventory", JSON.stringify($rootScope.data))
+                    $location.url('/home');
+                }
+            }
+        })
+    </script>
+    <div ng-view></div>
+</body>
+
+</html>
