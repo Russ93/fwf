@@ -63,7 +63,7 @@
 
             console.log("run")
             if (localStorage.inventory != "" ) {
-            	console.log(localStorage.inventory)
+            	console.log(localStorage.inventory.getItem('inventory'))
                 localStorage.setItem("inventory", JSON.stringify([{
                     "name": "Do Something",
                     "time": "10:00pm",
