@@ -62,7 +62,8 @@
         iapp.run(function($rootScope) {
 
             console.log("run")
-            if (localStorage.inventory != null||undefined||"" ) {
+            if (localStorage.inventory != "" ) {
+            	console.log(localStorage.inventory)
                 localStorage.setItem("inventory", JSON.stringify([{
                     "name": "Do Something",
                     "time": "10:00pm",
