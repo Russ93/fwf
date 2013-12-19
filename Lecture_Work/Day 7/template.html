@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Day 6 Practice</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-    <script type="text/javascript" src="views/j/jquery.timeTo.min.js"></script>
+    <script type="text/javascript" src="/views/j/jquery.timeTo.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-resource.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Quicksand|Lato:300' rel='stylesheet' type='text/css'>
@@ -62,23 +62,15 @@
         iapp.run(function($rootScope) {
 
             console.log("run")
-            if (localStorage.inventory != null||undefined||"" ) {
-                localStorage.setItem("inventory", JSON.stringify([{
-                    "name": "Do Something",
-                    "time": "10:00pm",
-                    "description": 'Start a work out'
-                }, {
-                    "name": "Blood Oranges",
-                    "count": "5",
-                    "description": ["Florida's fine oranges", "Florida Oranges for orange juice"]
-                }]))
-            }
-            $rootScope.data = JSON.parse(localStorage.getItem('inventory'))
+
+            localStorage.setItem("inventory", JSON.stringify([ { "name": "Do Something", "time": "10:00pm","description": 'Start a work out' }, { "name": "Blood Oranges", "count": "5", "description": [ "Florida's fine oranges", "Florida Oranges for orange juice" ] } ]))
+
+            $rootScope.data = JSON.parse(localStorage.getItem('inventory'));
         })
 
          iapp.controller('homectrl', function($scope, $rootScope, $location, $routeParams) {
 
-            var myurl = document.URL.split("http://russ93.github.io/fwf/Lab_Work/lab_7/#/"),
+            var myurl = document.URL.split("http://127.0.0.1:63915/template.html#/"), //CHANGE THIS SHIT YO!!!
                 myurlaction = myurl[1].split("/"),
                 action = myurlaction[0];
             if (action == 'index') {
