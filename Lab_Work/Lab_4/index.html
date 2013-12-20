@@ -26,6 +26,7 @@
           ad.controller('ad1', function($scope,$http) {
               $http.jsonp('http://otagtekin.com/lab4.php?action=getAds&username=student&password=1234&callback=JSON_CALLBACK')
               .success(function(json) {
+                  console.log(json)
                   $scope.ads = json[0].ads;
               })
           })

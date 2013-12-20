@@ -1,0 +1,18 @@
+{"inventory": [
+    {
+        "name": "Red Apples",
+        "count": "10",
+        "description": [
+            "Best Red Apples in the US",
+            "Red Apples from CA"
+        ]
+    },
+    {
+        "name": "Blood Oranges",
+        "count": "5",
+        "description": [
+            "Florida's fine oranges",
+            "Florida Oranges for orange juice"
+        ]
+     }
+]}

@@ -1,0 +1,29 @@
+<h1>The Sound Provider Discography</h1>
+<aside>
+    <ul>
+        <li ng-repeat="item in albums">
+            <a href="#/view/{{$index}}">
+                <img src="{{item.thumb}}"></img>
+                <dfn>{{item.aSide}}</dfn>
+                <dfn>/ {{item.bSide}}</dfn>
+            </a>
+        </li>
+    </ul>
+</aside>
+<section ng-repeat="view in views">
+    <article>
+        <h2>{{view.aSide}}/{{view.aSide}}</h2>
+        <ul>
+            <li>Date:{{view.rDate.date}}</li>
+            <li>Time Zone: {{view.rDate.timezone}} - {{view.rDate.timezone_type}}
+            </li>
+            <li>Format:{{view.format}}</li>
+            <li>Record Number:{{view.rNum}}</li>
+            <li>Description:
+                <p>{{view.desc}}</p>
+            </li>
+        </ul>
+    </article>
+    <a href="{{view.iTunes}}" class='button'>Buy it here on iTunes</a>
+    <img src="{{view.image}}"></img>
+</section>

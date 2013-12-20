@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="final">
+
+<head>
+    <title>FWF_Pricatical</title>
+    <!-- Styles -->
+    <link href='http://fonts.googleapis.com/css?family=Fenix|Lato|Raleway:300' rel='stylesheet' type='text/css'>
+    <link href='c/m.css' rel='stylesheet' type='text/css'>
+    <!-- JavaScript -->
+    <!--    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.js"></script>-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-resource.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+    <script>
+        final = angular.module('final', ['ngRoute']);
+        final.config(function($routeProvider) {
+            $routeProvider
+                .when("/index", {
+                    controller: 'home',
+                    templateUrl: 'content/home.html'
+                })
+                .when("/view/:id", {
+                    controller: 'view',
+                    templateUrl: 'content/view.html'
+                }).otherwise({
+                    redirectTo: '/index'
+                })
+        })
+
+
+         final.factory('get', function($rootScope, $location, $http) {
+            return {
+                getInfo: function(runner) {
+                    $http.jsonp('http://wddbs.com/ffw/jsapi/albums.php?callback=JSON_CALLBACK').success(function(json) {
+                        $rootScope.data = json
+                        runner()
+                    })
+                } //getInfo
+            } //return
+        }) //'get' factory
+
+
+
+         final.controller('home', function($rootScope, $scope,$location, get, $routeParams) {
+            get.getInfo(function() {
+                    $scope.albums = $rootScope.data
+            }) // This runs after the sucess
+        })
+         final.controller('view', function($location,$rootScope, $scope, get, $routeParams) {
+            if ($rootScope.data != undefined) {
+                console.log($rootScope.data)
+                $scope.albums = $rootScope.data
+                $scope.views = [$rootScope.data[$routeParams.id]]
+                console.log($scope.views)
+            }else{
+                $location.url('/index')
+            }
+        })
+    </script>
+</head>
+
+<body>
+    <ng-view></ng-view>
+</body>
+
+</html>

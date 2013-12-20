@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="inv">
+    <head>
+        <meta charset="utf-8">
+        <title>Day 6 Practice</title>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-resource.js"></script>
+    </head>
+    <body>
+        <h1><a href="#/index">Home</a></a></h1>
+        <a href="#/add">Add Item</a>
+        
+        <script>
+            iapp = angular.module('inv',['ngResource']);
+            
+            iapp.config(function($routeProvider) {
+                $routeProvider
+                .when('/index',{
+                    controller:'homectrl',
+                    templateUrl:'views/index.html'
+                })
+                .when('/add',{
+                    controller:'addctrl',
+                    templateUrl:'views/add.html'
+                })
+                .when('/delete/:id',{
+                    controller:'deletectrl',
+                    templateUrl:'views/delete.html'
+                })
+                .when('/edit/:id',{
+                    controller:'editctrl',
+                    templateUrl:'views/edit.html'
+                })
+                .otherwise({
+                    redirectTo:'/index'
+                })
+            })
+            
+            iapp.run(function($rootScope,itemData) {
+                itemData.get(function(response) {
+                    $rootScope.data = response.inventory;
+                })
+            })
+            
+            iapp.factory('itemData', function($resource) {
+                return $resource('data.json',{});
+            })
+            
+            iapp.controller('homectrl', function($scope,$rootScope) {
+                $scope.items = $rootScope.data;
+            })
+            
+            iapp.controller('addctrl', function($scope,$rootScope,$location) {
+                $scope.item = {};
+                $scope.add = function() {
+                    $rootScope.data.push($scope.item);
+                    $location.url('/index');
+                }
+            })
+            
+            iapp.controller('deletectrl', function($scope,$rootScope,$location,$routeParams) {
+                $scope.del = function() {
+                    $rootScope.data.splice($routeParams.id, 1);
+                    $location.url('/index');
+                }
+            })
+            
+            iapp.controller('editctrl', function($scope,$rootScope,$location,$routeParams) {
+                $scope.item = $rootScope.data[$routeParams.id];
+                $scope.update = function() {
+                    $rootScope.data[$routeParams.id] = $scope.item;
+                    $location.url('/index');
+                }
+            })
+        </script>
+        <div ng-view></div>
+    </body>
+</html>
